@@ -5,7 +5,3 @@
 	<title>Document</title>
 </head>
 <body>
-	<h1>Hello World</h1>
-	<h2>This is an Online Job Portal</h2>
-</body>
-</html>
