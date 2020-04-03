@@ -18,84 +18,45 @@ class HashMap
 	private $map = array();
 	private $salt = "1234";
 	
-	private $containsCheck = 1;
+	private $containsCheck = true;
 
-	function __construct()
-	{
+	function __construct() {
 		set_error_handler([&$this, 'errorHandler']);	
 	}
 
-	public function add($value)
-	{
+	public function errorHandler($errno, $errstr, $errfile, $errline) {
+	    switch ($errno) {
+	        case E_NOTICE:
+	        	echo "s";
+	        	$this->containsCheck = false;
+	        	break;
+	        default:
+	        	break;
+	    }
+	}
+
+	public function add($value) {
 		$this->map+=[hash('gost', $value.$this->salt)=>$value];				
 	}
 
-
-	public function errorHandler($errno, $errstr, $errfile, $errline) {
-	 
-	    switch ($errno) {
-	        case E_NOTICE:
-	        	// echo "got it";
-	        	$this->containsCheck = 0;
-	        	break;
-	        // case E_USER_NOTICE:
-	        // 	echo "got it";
-	        // 	break;
-	        // case E_DEPRECATED:
-	        // case E_USER_DEPRECATED:
-	        // case E_STRICT:
-	        //     echo("STRICT error $errstr at $errfile:$errline n");
-	        //     break;
-	 
-	        // case E_WARNING:
-	        // case E_USER_WARNING:
-	        //     echo("WARNING error $errstr at $errfile:$errline n");
-	        //     break;
-	 
-	        // case E_ERROR:
-	        // case E_USER_ERROR:
-	        // case E_RECOVERABLE_ERROR:
-	        //     exit("FATAL error $errstr at $errfile:$errline n");
-	 
-	        // default:
-	        //     exit("Unknown error at $errfile:$errline n");
-	    }
-	}
-	 
-	
-
-
-	public function contains($value)
-	{
-
+	public function contains($value) {
 		$hash = hash('gost', $value.$this->salt);
-	
-		try {
-			$tempValue = $this->map[$hash];
-			if($containsCheck){
-				return true;
-				 // trigger_error('Value $foo must be true', E_USER_NOTICE);
-			} else {
-				return false;
-			}
-		} catch (ErrorException $e) {
-			// restore_error_handler();
-			// echo "got it";
-		} finally {
-			// restore_error_handler();
-		}
+		// $tempValue = $this->map[$hash];
+		// if($containsCheck){
+		// 	echo "i";
+		// 	return true;
+		// } else {
+		// 	echo "j";
+		// 	$this->containsCheck = true;
+		// 	return false;
+		// }
 
-		// if($this->map[$hash]){
-		// 	return true;
-		// } else {
-		// 	return false;
-		// }
-	
-		// if(array_key_exists($hash, $this->map)){
-		// 	return true;
-		// } else {
-		// 	return false;
-		// }
+
+		if(array_key_exists($hash, $this->map)){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public function print()
@@ -110,12 +71,6 @@ class HashMap
 
 require '_db_connection.php';
 
-// function our_global_exception_handler($exception) {
-//     //this code should log the exception to disk and an error tracking system
-//     echo "Exception:".$e->getMessage();
-// }
-
-// set_exception_handler("our_global_exception_handler");
 
 if(isset($_POST["add_post"])){
 	$title = $_POST["title"];
@@ -132,8 +87,6 @@ if(isset($_POST["add_post"])){
 	print_r($skillsArr);
 	// addNewSkills($newSkills,$conn);
 }
-
-
 
 function addPost($title,$description,$company,$skills,$conn) {
 	$sql = "INSERT INTO job_posts(job_title,job_description,job_company,job_skills) VALUES(?,?,?,?)";
@@ -170,7 +123,7 @@ function identifyNewSkills($skillsArr,$conn) {
 
 	foreach ($skillsArr as $skill) {
 		if(!$storedSkillsMap->contains($skill)){
-			// echo $skill;
+			echo $skill;
 			array_push($newSkills, $skill);
 		}
 	}
