@@ -3,7 +3,6 @@
 // ***********
 // *
 // *
-// *	Todo: Clean up code
 // *	Todo: Change for to foreach loop 
 // *
 // *
@@ -20,38 +19,12 @@ class HashMap
 	
 	private $containsCheck = true;
 
-	// function __construct() {
-	// 	set_error_handler([&$this, 'errorHandler']);	
-	// }
-
-	// public function errorHandler($errno, $errstr, $errfile, $errline) {
-	//     switch ($errno) {
-	//         case E_NOTICE:
-	//         	// echo "s";
-	//         	$this->containsCheck = false;
-	//         	break;
-	//         default:
-	//         	break;
-	//     }
-	// }
-
 	public function add($value) {
 		$this->map+=[hash('gost', $value.$this->salt)=>$value];				
 	}
 
 	public function contains($value) {
 		$hash = hash('gost', $value.$this->salt);
-		// $tempValue = $this->map[$hash];
-		// if($containsCheck){
-		// 	echo "i";
-		// 	return true;
-		// } else {
-		// 	echo "j";
-		// 	$this->containsCheck = true;
-		// 	return false;
-		// }
-
-
 		if(array_key_exists($hash, $this->map)){
 			return true;
 		} else {
@@ -59,11 +32,7 @@ class HashMap
 		}
 	}
 
-	public function print()
-	{
-		// foreach ($this->map as $key => $value) {
-		// 	echo $key . "=>" . $value;
-		// }
+	public function print() {
 		print_r($this->map);
 	}
 }
@@ -178,8 +147,6 @@ function identifyNewSkills($skillsArr,$conn) {
 			array_push($newSkills, $skill);
 		}
 	}
-	// print_r($newSkills);
-	// $storedSkillsClass->print();
 	return $newSkills;
 }
 
@@ -200,8 +167,6 @@ function addNewSkills($newSkills,$conn) {
 
 
 function getIndividualSkills($skills) {
-	//array(0,0,0,0) = ",","/","or","and"
-	// $seperatingCharArr = array(0,0,0,0);
 	$seperatingCharMap = array(","=>0,"or"=>0,"/"=>0,"and"=>0);
 
 	$skillArr = array();
@@ -212,62 +177,16 @@ function getIndividualSkills($skills) {
 	}
 
 	reset($seperatingCharMap);
-	// echo current($seperatingCharMap);
-	// var_dump($seperatingCharMap);
-
-	// if(strpos($skills, ",")!=null){
-	// 	$seperatingCharArr[0] = 1;		
-	// }
-	// if(strpos($skills, "or")!=null){
-	// 	$seperatingCharArr[1] = 1;		
-	// }
-	// if(strpos($skills, "/")!=null){
-	// 	$seperatingCharArr[2] = 1;		
-	// }
-	// if(strpos($skills, "and")!=null){
-	// 	$seperatingCharArr[3] = 1;		
-	// }
-
-
+	
 	//if string contains only one skill
 	if($seperatingCharMap[","] == 0 && $seperatingCharMap["or"] == 0 && $seperatingCharMap["/"] == 0 && $seperatingCharMap["and"] == 0){
 		$skillArr[0] = $skills;
-		// echo "return";
 		return $skillArr;
 	}
 
 
-
-
-
-
-	//checking for " , "
-	// if($seperatingCharArr[0]==1){
-	// 	$skillArr = explode(',',$skills);
-	// }
-
-	// //ckecking for " or "
-	// if($seperatingCharArr[1]==1){
-	// 	if($skillArr>1){
-	// 		for ($i=0; $i < count($skillArr); $i++) { 
-	// 			$skill = $skillArr[$i];
-	// 			$moreSkillArr = array();
-	// 			if(strpos($skill, "or")!=null){
-	// 				$moreSkillArr = explode('or',$skill);
-	// 			}
-	// 			array_splice($skillArr,$i,1,$moreSkillArr);
-	// 		}
-	// 	} else {
-	// 		$skillArr = explode('or',$skills);		
-	// 	}
-	// }
-
-
-
 	while(list($key,$value) = each($seperatingCharMap)){
 		if($seperatingCharMap[$key] == 1){
-			// echo $seperatingCharMap[$key];
-			// echo $key;
 			if(count($skillArr)>1){ 							//Todo: Change it to foreach loop  
 				for ($i=0; $i < count($skillArr); $i++) { 
 					$skill = $skillArr[$i];
@@ -276,12 +195,10 @@ function getIndividualSkills($skills) {
 						$moreSkillArr = explode($key,$skill);
 						array_splice($skillArr,$i,1,$moreSkillArr);
 					}
-					// print_r($moreSkillArr);
 				}
 			} else {
 
 				$skillArr = explode($key,$skills);
-				// print_r($skillArr);		
 			}
 		}
 	}
@@ -292,5 +209,4 @@ function getIndividualSkills($skills) {
 
 	return $skillArr;
 }
-
 ?>
