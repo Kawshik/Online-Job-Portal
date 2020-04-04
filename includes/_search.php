@@ -9,7 +9,7 @@
 
 		$sql = "SELECT * FROM job_posts WHERE job_id IN 
 		( SELECT job_id FROM post_to_skill WHERE skill_id IN 
-		(SELECT skill_id FROM job_skills WHERE skill_name = ?))";
+		(SELECT skill_id FROM job_skills WHERE skill_name = ?)) ORDER BY published_at DESC";
 		$stmt = mysqli_stmt_init($conn);
 
 		if (!mysqli_stmt_prepare($stmt,$sql)) {
