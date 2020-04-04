@@ -82,9 +82,7 @@ function addPostToSkillRelation($title,$description,$company,$skills,$skillsArr,
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
 		$row = mysqli_fetch_assoc($result);
-		print_r($row);
-		$postId = $row["job_id"];	
-		echo $postId;	
+		$postId = $row["job_id"];		
 	}
 
 	$skillId = array();
@@ -102,7 +100,6 @@ function addPostToSkillRelation($title,$description,$company,$skills,$skillsArr,
 			array_push($skillId,$row["skill_id"]);		
 		}		
 	}
-	print_r($skillId);
 
 	foreach ($skillId as $id) {
 		$sql = "INSERT INTO post_to_skill(job_id,skill_id) VALUES(?,?)";
@@ -111,8 +108,6 @@ function addPostToSkillRelation($title,$description,$company,$skills,$skillsArr,
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			echo "error";
 		} else {
-			echo $id;
-			echo $postId;
 			mysqli_stmt_bind_param($stmt,"ii",$postId,$id);
 			mysqli_stmt_execute($stmt);
 		}	
@@ -134,7 +129,6 @@ function identifyNewSkills($skillsArr,$conn) {
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
 		while($row = mysqli_fetch_assoc($result)){
-			// array_push($storedSkills, $row);
 			$storedSkillsMap->add($row["skill_name"]);
 		}
 	}
@@ -143,7 +137,6 @@ function identifyNewSkills($skillsArr,$conn) {
 
 	foreach ($skillsArr as $skill) {
 		if(!$storedSkillsMap->contains($skill)){
-			echo $skill;
 			array_push($newSkills, $skill);
 		}
 	}
@@ -158,7 +151,6 @@ function addNewSkills($newSkills,$conn) {
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			echo "error";
 		} else {
-			$trimString = trim($newSkill);
 			mysqli_stmt_bind_param($stmt,"s",$newSkill);
 			mysqli_stmt_execute($stmt);
 		}
@@ -197,7 +189,6 @@ function getIndividualSkills($skills) {
 					}
 				}
 			} else {
-
 				$skillArr = explode($key,$skills);
 			}
 		}
