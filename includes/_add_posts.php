@@ -20,20 +20,20 @@ class HashMap
 	
 	private $containsCheck = true;
 
-	function __construct() {
-		set_error_handler([&$this, 'errorHandler']);	
-	}
+	// function __construct() {
+	// 	set_error_handler([&$this, 'errorHandler']);	
+	// }
 
-	public function errorHandler($errno, $errstr, $errfile, $errline) {
-	    switch ($errno) {
-	        case E_NOTICE:
-	        	echo "s";
-	        	$this->containsCheck = false;
-	        	break;
-	        default:
-	        	break;
-	    }
-	}
+	// public function errorHandler($errno, $errstr, $errfile, $errline) {
+	//     switch ($errno) {
+	//         case E_NOTICE:
+	//         	// echo "s";
+	//         	$this->containsCheck = false;
+	//         	break;
+	//         default:
+	//         	break;
+	//     }
+	// }
 
 	public function add($value) {
 		$this->map+=[hash('gost', $value.$this->salt)=>$value];				
@@ -78,14 +78,15 @@ if(isset($_POST["add_post"])){
 	$skills = $_POST["skills"];
 	$description = $_POST["description"];
 
-	// addPost($title,$description,$company,$skills,$conn);
-	// var_dump(getIndividualSkills($skills));
+	addPost($title,$description,$company,$skills,$conn);
+	
 	$skillsArr = getIndividualSkills($skills);
-	print_r($skillsArr);
+	
 	$newSkills  = identifyNewSkills($skillsArr,$conn);
-	echo "<br>";
-	print_r($skillsArr);
-	// addNewSkills($newSkills,$conn);
+	
+	addNewSkills($newSkills,$conn);
+
+	addPostToSkillRelation($title,$description,$company,$skills,$skillsArr,$conn);
 }
 
 function addPost($title,$description,$company,$skills,$conn) {
@@ -98,6 +99,56 @@ function addPost($title,$description,$company,$skills,$conn) {
 		mysqli_stmt_execute($stmt);
 	}
 } 
+
+function addPostToSkillRelation($title,$description,$company,$skills,$skillsArr,$conn) {
+	$postId = 0;
+
+	$sql = "SELECT job_id FROM job_posts WHERE job_title=? AND job_description=? AND job_company=? AND job_skills=?";
+	$stmt = mysqli_stmt_init($conn);
+	
+	if(!mysqli_stmt_prepare($stmt,$sql)){
+		echo "error";
+	} else {
+		mysqli_stmt_bind_param($stmt,"ssss",$title,$description,$company,$skills);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+		$row = mysqli_fetch_assoc($result);
+		print_r($row);
+		$postId = $row["job_id"];	
+		echo $postId;	
+	}
+
+	$skillId = array();
+	foreach ($skillsArr as $skill) {
+		$sql = "SELECT skill_id FROM job_skills WHERE skill_name = ?";
+		$stmt = mysqli_stmt_init($conn);
+		
+		if(!mysqli_stmt_prepare($stmt,$sql)){
+			echo "error";
+		} else {
+			mysqli_stmt_bind_param($stmt,"s",$skill);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
+			$row = mysqli_fetch_assoc($result);
+			array_push($skillId,$row["skill_id"]);		
+		}		
+	}
+	print_r($skillId);
+
+	foreach ($skillId as $id) {
+		$sql = "INSERT INTO post_to_skill(job_id,skill_id) VALUES(?,?)";
+		$stmt = mysqli_stmt_init($conn);
+		
+		if(!mysqli_stmt_prepare($stmt,$sql)){
+			echo "error";
+		} else {
+			echo $id;
+			echo $postId;
+			mysqli_stmt_bind_param($stmt,"ii",$postId,$id);
+			mysqli_stmt_execute($stmt);
+		}	
+	}
+}
 
 
 function identifyNewSkills($skillsArr,$conn) {
@@ -140,6 +191,7 @@ function addNewSkills($newSkills,$conn) {
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			echo "error";
 		} else {
+			$trimString = trim($newSkill);
 			mysqli_stmt_bind_param($stmt,"s",$newSkill);
 			mysqli_stmt_execute($stmt);
 		}
@@ -232,6 +284,10 @@ function getIndividualSkills($skills) {
 				// print_r($skillArr);		
 			}
 		}
+	}
+
+	for ($i=0; $i < count($skillArr); $i++) {
+		$skillArr[$i] = trim($skillArr[$i]);
 	}
 
 	return $skillArr;
