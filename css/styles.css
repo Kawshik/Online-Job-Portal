@@ -51,14 +51,14 @@ select:-webkit-autofill:focus {
 .navbar{
 	background: var(--bg-color);
 	width: 100%;
-	height: 70px;
 	box-shadow: 0px 1px 8px rgba(0,0,0,0.25);
 
-	display: flex;
-	justify-content: space-between;
+	/*display: flex;
+	justify-content: space-between;*/
 	align-items: center;
 	padding: 0px 0px;
 	position: fixed;
+	flex-direction: row;
 }
 
 .logo{

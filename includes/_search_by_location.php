@@ -1,27 +1,25 @@
 <?php 
-	if(isset($_POST["skill"])){
-		searchBySkill($_POST["skill"]);
+	if(isset($_POST["location"])){
+		searchByLocation($_POST["location"]);
 	}
 
-	function searchBySkill($skill)
+	function searchByLocation($location)
 	{
 		require '_db_connection.php';
 
-		$sql = "SELECT * FROM job_posts WHERE job_id IN 
-		( SELECT job_id FROM post_to_skill WHERE skill_id IN 
-		(SELECT skill_id FROM job_skills WHERE skill_name = ?)) ORDER BY published_at DESC";
+		$sql = "SELECT * FROM job_posts WHERE job_location=?";
 		$stmt = mysqli_stmt_init($conn);
 
 		if (!mysqli_stmt_prepare($stmt,$sql)) {
 			echo "Connection Error";
 		} else {
 
-			mysqli_stmt_bind_param($stmt,"s",$skill);
+			mysqli_stmt_bind_param($stmt,"s",$location);
 			mysqli_stmt_execute($stmt);
 
 			$result = mysqli_stmt_get_result($stmt);
 
-			echo "<h2 class=\"banner-text\"> These Jobs are found for skill</h2>";
+			echo "<h2 class=\"banner-text\"> These Jobs are found for location ". $location ."</h2>";
 
 			//check for empty results
 			if($result->num_rows == null){

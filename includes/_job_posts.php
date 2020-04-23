@@ -2,8 +2,8 @@
 
 	require '_db_connection.php';
 
-	// $sql = "SELECT * FROM job_posts ORDER BY published_at DESC";
-	$sql = "SELECT * FROM job_posts";
+	$sql = "SELECT * FROM job_posts ORDER BY published_at DESC";
+	// $sql = "SELECT * FROM job_posts";
 	$stmt = mysqli_stmt_init($conn);
 
 	echo "<h1 class=\"banner-text\">Job's Available For You</h1>";
