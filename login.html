@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Online Job Portal</title>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/styles.css">
+	
+</head>
+<body>
+<!-- <a href="index.php">go</a> -->
+	<nav class="navbar">
+		<div class="flex nav-row-1">
+			<div class="logo"><a href="index.php"><img src="assets/logo/logo.svg" alt=""></a></div>
+			<!-- <a href="add_post.php"><button class="button add-btn"><img src="assets/icons/add_icon.svg" alt="">&nbsp;&nbsp;&nbsp;Add a Job Post</button></a> -->
+			<div class="auth-container">
+				<a href="index.php">Home</a>
+				<a href="signup.html" class="" id="signup-btn">Sign Up</a>
+			</div>
+			
+		</div>
+	</nav>
+	<div class="login-container">
+		<div class="container-left">
+			<img src="assets/illustrations/login_illus.svg" alt="">
+		</div>
+		<div class="container-right">
+			<div class="form-banner"><h1>Log In...</h1><span id="error-msg" class="error-msg"></span></div>
+			<form id="login_form" class="flex-row login-form">
+					<input type="text" name="username" placeholder="Enter UserName or Email Id" class="textbox" id="username"></input>
+					<input type="password" name="password" placeholder="Enter Password" class="textbox" id="password"></input>
+					<div class="submit-section flex">
+						<div class="left-column flex-row">
+							<input type="submit" name="add_post" class="button submit-btn" value="Log In"></input>
+							<span><a href="#">Forgot password?</a></span>
+						</div>
+						<div class="right-column">
+							<span><a href="signup.html">Don't have an Account?<br>Sign Up</a></span>
+						</div>
+					</div>
+			</form>
+		</div>
+	</div>
+
+
+<script>
+	// sessionStorage.user = "kawshik";
+</script>
+<script src="scripts/login_scripts.js"></script>
+</body>
+</html>

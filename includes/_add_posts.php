@@ -46,9 +46,10 @@ if(isset($_POST["add_post"])){
 	$title = $_POST["title"];
 	$company = $_POST["company"];
 	$skills = $_POST["skills"];
+	$location = $_POST["location"];
 	$description = $_POST["description"];
 
-	addPost($title,$description,$company,$skills,$conn);
+	addPost($title,$description,$company,$skills,$location,$conn);
 	
 	$skillsArr = getIndividualSkills($skills);
 	
@@ -56,30 +57,30 @@ if(isset($_POST["add_post"])){
 	
 	addNewSkills($newSkills,$conn);
 
-	addPostToSkillRelation($title,$description,$company,$skills,$skillsArr,$conn);
+	addPostToSkillRelation($title,$description,$company,$skills,$location,$skillsArr,$conn);
 }
 
-function addPost($title,$description,$company,$skills,$conn) {
-	$sql = "INSERT INTO job_posts(job_title,job_description,job_company,job_skills) VALUES(?,?,?,?)";
+function addPost($title,$description,$company,$skills,$location,$conn) {
+	$sql = "INSERT INTO job_posts(job_title,job_description,job_company,job_skills,job_location) VALUES(?,?,?,?,?)";
 	$stmt = mysqli_stmt_init($conn);
 	if(!mysqli_stmt_prepare($stmt,$sql)){
 		echo "error";
 	} else {
-		mysqli_stmt_bind_param($stmt,"ssss",$title,$description,$company,$skills);
+		mysqli_stmt_bind_param($stmt,"sssss",$title,$description,$company,$skills,$location);
 		mysqli_stmt_execute($stmt);
 	}
 } 
 
-function addPostToSkillRelation($title,$description,$company,$skills,$skillsArr,$conn) {
+function addPostToSkillRelation($title,$description,$company,$skills,$location,$skillsArr,$conn) {
 	$postId = 0;
 
-	$sql = "SELECT job_id FROM job_posts WHERE job_title=? AND job_description=? AND job_company=? AND job_skills=?";
+	$sql = "SELECT job_id FROM job_posts WHERE job_title=? AND job_description=? AND job_company=? AND job_skills=? AND job_location=?";
 	$stmt = mysqli_stmt_init($conn);
 	
 	if(!mysqli_stmt_prepare($stmt,$sql)){
 		echo "error";
 	} else {
-		mysqli_stmt_bind_param($stmt,"ssss",$title,$description,$company,$skills);
+		mysqli_stmt_bind_param($stmt,"sssss",$title,$description,$company,$skills,$location);
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
 		$row = mysqli_fetch_assoc($result);
