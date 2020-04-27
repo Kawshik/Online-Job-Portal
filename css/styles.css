@@ -26,6 +26,9 @@ a{
 	text-decoration: none;
 }
 
+ul{
+	margin-left: 18px;
+}
 
 .hide{
 	display: none;
@@ -256,7 +259,7 @@ select:-webkit-autofill:focus {
 	font-weight: 300;
 	color: var(--primary-dark-color);
 	font-style: italic;
-	font-size: 11.5px;
+	font-size: 12.5px;
 	padding-left: 10px;
 }	
 
@@ -279,13 +282,14 @@ select:-webkit-autofill:focus {
 
 .row-4 .skills{
 	padding: 5px 0px;
+	width: 65%;
 }
 
 .row-4 .skills span{
 	font-weight: 300;
 	color: var(--primary-dark-color);
 	font-style: italic;
-	font-size: 11.5px;
+	font-size: 12.5px;
 	padding-left: 10px;
 }	
 

@@ -20,14 +20,30 @@
 					<input type="text" name="skills" placeholder="Enter skills required" class="skills"></input>
 					<input type="text" name="location" placeholder="Enter job location" class="skills"></input>
 				</div>
-				<textarea name="description" placeholder="Giva a brief description of the job" cols="30" rows="10"></textarea>
+				<textarea id="description" name="description" placeholder="Giva a brief description of the job" cols="30" rows="10"></textarea>
 				<input type="submit" name="add_post" class="button submit-btn"></input>
 			</form>
 
-			<img src="assets/illustrations/form_illus.svg" alt="">
+			<!-- <img src="assets/illustrations/form_illus.svg" alt=""> -->
 		</div>
 	</div>
 
+
+<script src='https://cdn.tiny.cloud/1/wm7knm6hb2wdc0icmog712msyiaze8y6qlk53dkpciib1p6y/tinymce/5/tinymce.min.js' referrerpolicy="origin">
+  </script>
+<script>
+	tinymce.init({
+		selector:'#description',
+		plugins: "advlist importcss paste help hr fullscreen link lists autoresize",
+		content_css: "css/styles.css",
+		importcss_append: true,
+		autoresize_bottom_margin: 50,
+		autoresize_on_init: true,
+		autoresize_overflow_padding: 10,
+		max_height: 300,
+		min_height: 350
+	});
+</script>
 <?php  
 	require 'includes/_footer.php';
 ?>
