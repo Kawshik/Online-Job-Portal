@@ -20,7 +20,7 @@
 					<input type="text" name="skills" placeholder="Enter skills required" class="skills"></input>
 					<input type="text" name="location" placeholder="Enter job location" class="skills"></input>
 				</div>
-				<textarea id="description" name="description" placeholder="Giva a brief description of the job" cols="30" rows="10"></textarea>
+				<textarea id="description" name="description" placeholder="Giva a brief description of the job" cols="30" rows="10"></textarea><br>
 				<input type="submit" name="add_post" class="button submit-btn"></input>
 			</form>
 
