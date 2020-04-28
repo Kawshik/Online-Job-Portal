@@ -1,26 +1,26 @@
 <?php 
-
 	require '_db_connection.php';
 
-	$sql = "SELECT * FROM job_posts ORDER BY published_at DESC";
-	// $sql = "SELECT * FROM job_posts";
-	$stmt = mysqli_stmt_init($conn);
+	echo "<h1 class=\"banner-text\">Hurry Apply Now...</h1>";
 
-	echo "<h1 class=\"banner-text\">Job's Available For You</h1>";
+	$id = 0;
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+		getSinglePost($id,$conn);		
+	}
 
-	if (!mysqli_stmt_prepare($stmt,$sql)) {
-		echo "Connection Error";
-	} else {
-		mysqli_stmt_execute($stmt);
-		$result = mysqli_stmt_get_result($stmt);	
 
-		while($row = mysqli_fetch_assoc($result)){
-			// echo "<h4>";
-			// echo $row["job_title"];
-			// echo "</h4>";
-			// echo "<div style=\"width:680px; background:#cccccc; white-space:pre-wrap;\">";
-			// echo $row["job_description"];
-			// echo "</div>";
+	function getSinglePost($id,$conn){
+		$sql = "SELECT * FROM job_posts WHERE job_id=?";
+		$stmt = mysqli_stmt_init($conn);
+		if (!mysqli_stmt_prepare($stmt,$sql)) {
+			echo "Connection Error";
+		} else {
+			mysqli_stmt_bind_param($stmt,"i",$id);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);	
+			while($row = mysqli_fetch_assoc($result)){
+			
 ?>
 
 			<div class="post-container">
@@ -37,7 +37,7 @@
 				</div>
 				<div class="description">
 					<span>Description</span>
-					<h4><?php echo substr($row["job_description"],0,600) . "   ....";?></h4>
+					<h4><?php echo $row["job_description"]; ?></h4>
 				</div>
 				<div class="row-4">
 					<div class="skills">
@@ -57,5 +57,6 @@
 		}
 
 	}
+}
 
 ?>

@@ -1,25 +1,27 @@
 <?php 
-	if(isset($_GET["location"])){
-		searchByLocation($_GET["location"]);
+	if(isset($_GET["skill"])){
+		searchBySkill($_GET["skill"]);
 	}
 
-	function searchByLocation($location)
+	function searchBySkill($skill)
 	{
 		require '_db_connection.php';
 
-		$sql = "SELECT * FROM job_posts WHERE job_location=?";
+		$sql = "SELECT * FROM job_posts WHERE job_id IN 
+		( SELECT job_id FROM post_to_skill WHERE skill_id IN 
+		(SELECT skill_id FROM job_skills WHERE skill_name = ?)) ORDER BY published_at DESC";
 		$stmt = mysqli_stmt_init($conn);
 
 		if (!mysqli_stmt_prepare($stmt,$sql)) {
 			echo "Connection Error";
 		} else {
 
-			mysqli_stmt_bind_param($stmt,"s",$location);
+			mysqli_stmt_bind_param($stmt,"s",$skill);
 			mysqli_stmt_execute($stmt);
 
 			$result = mysqli_stmt_get_result($stmt);
 
-			// echo "<h2 class=\"banner-text\"> These Jobs are found for location ". $location ."</h2>";
+			// echo "<h2 class=\"banner-text\"> These Jobs are found for skill</h2>";
 
 			//check for empty results
 			if($result->num_rows == null){
@@ -27,12 +29,12 @@
 				?>
 
 				<div class="post-container">
-					<h3 class="title">no job found in location <?php echo $location ?></h3>
+					<h3 class="title">no job found for skill <?php echo $skill ?></h3>
 				</div>
 
-			<?php
+			<?php 
 			} else {
-				echo "<h2 class=\"banner-text\"> These Jobs are found in location ". $location ."</h2>";
+				echo "<h2 class=\"banner-text\"> These Jobs are found for skill " . $skill . "</h2>";
 				while($row = mysqli_fetch_assoc($result)){		
 					// echo "<div style=\"width:680px; background:#cccccc; white-space:pre-wrap;\">";
 					// echo "<h4>";

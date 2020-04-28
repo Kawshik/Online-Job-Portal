@@ -19,14 +19,14 @@
 			
 		</div>
 		<div class="flex nav-row-2">
-			<form method="GET" action="index.php" class="flex">
+			<form method="POST" action="index.php" class="flex">
 				<div class="search-input">
 					<img src="assets/icons/search_icon.svg" alt="">&nbsp;
 					<input type="text" name="skill" placeholder="Enter a Job skill"></input>
 				</div>
 				<input type="submit" text="skills" value="Search By Skills" class="button search-btn"></input>
 			</form>
-			<form method="GET" action="index.php" class="flex">
+			<form method="POST" action="index.php" class="flex">
 				<div class="search-input">
 					<img src="assets/icons/search_icon.svg" alt="">&nbsp;
 					<input type="text" name="location" placeholder="Enter a Job Location"></input>
@@ -35,22 +35,14 @@
 			</form>
 		</div>
 	</nav>
-
+	
 	<div class="container">
-		<?php 
-			if(isset($_GET["skill"]) && isset($_GET["location"])){			
-				require 'includes/_search.php';
-			} else if(isset($_GET["location"])){
-				require 'includes/_search_by_location.php';
-			} else if(isset($_GET["skill"])){
-				require 'includes/_search_by_skill.php';
-			}
-			else {
-				require 'includes/_job_posts.php';	
-			}
-		?>
+		<?php require 'includes/_single_job_post.php' ?>
 
 	</div>
+	<?php  
+		
+	?>
 <?php  
 	require 'includes/_footer.php';
 ?>
