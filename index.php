@@ -8,7 +8,7 @@
 ?>
 	<nav class="navbar">
 		<div class="flex nav-row-1">
-			<div class="logo"><a href="index.php"><img src="assets/logo/logo.svg" alt=""></a></div>
+			<div class="logo"><a href="index.php"><img src="assets/logo/logo1.svg" alt=""></a></div>
 			<!-- <a href="add_post.php"><button class="button add-btn"><img src="assets/icons/add_icon.svg" alt="">&nbsp;&nbsp;&nbsp;Add a Job Post</button></a> -->
 			<div class="auth-container">
 				<a href="login.html" class="" id="login-btn">Log In</a>

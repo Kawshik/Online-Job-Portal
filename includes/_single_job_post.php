@@ -44,7 +44,7 @@
 						<span>Skills</span>
 						<h4><?php echo $row["job_skills"]; ?></h4>
 					</div>
-					<a href=<?php echo "./job_post.php?id=".$row["job_id"]; ?>>
+					<a href=<?php echo $row["job_link"]; ?>>
 						<div class="button apply-btn">
 							<img src="assets/icons/send_icon.svg" alt="">
 							<h4>Apply For This Job</h4>

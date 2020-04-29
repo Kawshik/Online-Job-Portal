@@ -117,8 +117,9 @@ select:-webkit-autofill:focus {
 }
 
 .logo a img{
-	margin-top: 10px;
-	height: 52px;
+	margin-top: 13px;
+	height: 45px;
+	margin-bottom: 14px;
 }
 
 .button{
@@ -455,7 +456,8 @@ select:-webkit-autofill:focus {
 
 .row-1{
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	align-items: center;
 	/*padding: 0px 50px;*/
 	width: 100%;
 	align-items: center;
@@ -463,7 +465,7 @@ select:-webkit-autofill:focus {
 }
 
 .row-1 form{
-	margin-left: 80px;
+	/*margin-left: 80px;*/
 	width:50%;
 	padding-top: 50px;
 }
