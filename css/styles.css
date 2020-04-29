@@ -73,6 +73,8 @@ select:-webkit-autofill:focus {
 	padding: 0px 0px;
 	position: fixed;
 	flex-direction: row;
+	z-index: 11;
+	/*display: none;*/
 }
 
 .navbar .nav-row-1{
@@ -170,15 +172,143 @@ select:-webkit-autofill:focus {
 	font-family: var(--gobal-font);
 }
 
+
 .container{
 	display: flex;
-	justify-content: center;
+	padding-top: 160px;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.left-sidebar{
+	/*border: 1px solid black;*/
+	margin-left: 80px;
+	padding-top: 8px;
+	padding-right: 30px;
+}
+
+.filter-heading{
+	color: var(--primary-dark-color);
+	font-weight: 400;
+	font-size: 22px;
+}
+
+.filter-form .sub-heading{
+	font-weight: 400;
+	font-size: 14px;
+	opacity: 0.5;	
+	margin-bottom: 10px;
+	z-index: -1;
+}
+
+
+/* The container */
+.radio-container {
+  display: block;
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radio-container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 14px;
+  width: 14px;
+/*   background-color: #32936F; */
+  border-radius: 50%;
+/*   opacity: 0.5; */
+  border: 2px solid #32936F;
+   margin-top: 4px;
+}
+
+/* On mouse-over, add a grey background color */
+.radio-container:hover input ~ .checkmark {
+  background-color: #32936F;
+  opacity: 1;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-container input:checked ~ .checkmark {
+  background-color: #FFF;
+  opacity: 1;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-container .checkmark:after {
+ 	top: 2px;
+	left: 2px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #32936F;
+}
+
+
+.filter-form input{
+	margin-bottom: 15px;
+	margin-right: 5px;
+}
+
+.apply-filter-btn{
+	background-color: var(--primary-color);
+	padding: 4px 10px 6px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.apply-filter-btn input{
+	margin-top: 40px;
+	background-color: var(--primary-color);
+	border: 0px;
+	color: var(--bg-color);
+	cursor: pointer;
+}
+
+.right-sidebar{
+	margin-right: 80px;	
+}
+
+.mid-container{
+	display: flex;
+	/*justify-content: center;*/
 	align-items: center;
 	flex-direction: column;
+	/*margin-left: 20%;*/
 	/*border: 1px solid black;	*/
-	padding-top: 160px;
+	/*padding-top: 160px;*/
 	/*width: var(--container-size);*/
 }
+
+
+
 
 .banner-text{
 	width: var(--container-size);
@@ -384,6 +514,8 @@ select:-webkit-autofill:focus {
 	padding-bottom: 12px;
 	background-color: var(--primary-dark-color);
 }
+
+
 
 .form-banner{
 	/*border: 1px solid black;*/

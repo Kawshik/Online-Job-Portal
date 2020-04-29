@@ -35,21 +35,26 @@
 			</form>
 		</div>
 	</nav>
-
+	
 	<div class="container">
-		<?php 
-			if(isset($_GET["skill"]) && isset($_GET["location"])){			
-				require 'includes/_search.php';
-			} else if(isset($_GET["location"])){
-				require 'includes/_search_by_location.php';
-			} else if(isset($_GET["skill"])){
-				require 'includes/_search_by_skill.php';
-			}
-			else {
-				require 'includes/_job_posts.php';	
-			}
-		?>
+		<div class="left-sidebar"><?php require 'includes/_left_sidebar.php'; ?></div>
+		<div class="mid-container">
+			<?php 
+				if(isset($_GET["skill"]) && isset($_GET["location"])){			
+					require 'includes/_search.php';
+				} else if(isset($_GET["location"])){
+					require 'includes/_search_by_location.php';
+				} else if(isset($_GET["skill"])){
+					require 'includes/_search_by_skill.php';
+				}
+				else {
+					require 'includes/_job_posts.php';	
+				}
+			?>
 
+		</div>
+		
+		<div class="right-sidebar">ADVERTISEMENTS</div>
 	</div>
 <?php  
 	require 'includes/_footer.php';

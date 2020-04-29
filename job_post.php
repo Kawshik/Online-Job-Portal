@@ -36,9 +36,11 @@
 		</div>
 	</nav>
 	
-	<div class="container">
-		<?php require 'includes/_single_job_post.php' ?>
+	<div class="container" style="justify-content: center">
+		<div class="mid-container">
+			<?php require 'includes/_single_job_post.php' ?>
 
+		</div>
 	</div>
 	<?php  
 		

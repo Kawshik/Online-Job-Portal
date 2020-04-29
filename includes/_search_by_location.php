@@ -7,7 +7,7 @@
 	{
 		require '_db_connection.php';
 
-		$sql = "SELECT * FROM job_posts WHERE job_location=?";
+		$sql = "SELECT * FROM job_posts WHERE job_location=? ORDER BY published_at DESC";
 		$stmt = mysqli_stmt_init($conn);
 
 		if (!mysqli_stmt_prepare($stmt,$sql)) {
